@@ -1,2 +1,3 @@
-.pytest_cache/
-assets/
+.idea
+.pytest_cache
+assets
