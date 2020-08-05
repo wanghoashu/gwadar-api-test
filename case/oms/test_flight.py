@@ -94,7 +94,7 @@ class TestFlight(object):
         url = '/api/oms/flights/111111111'
         response = TestFlight.common.get(url)
         print(response.text)
-        assert 400 == response.status_code
+        assert 500 == response.status_code
 
     def test_delete_flight(self):
         """
@@ -112,7 +112,7 @@ class TestFlight(object):
         url = '/api/oms/flights/111111110'
         response = TestFlight.common.delete(url)
         print(response.text)
-        assert 400 == response.status_code
+        assert 204 == response.status_code
 
     def test_complete_process(self):
         """
