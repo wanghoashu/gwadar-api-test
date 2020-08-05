@@ -1,4 +1,3 @@
-import pytest
 from common import Common
 
 
@@ -10,7 +9,7 @@ class TestLogin(object):
         """
         comm = Common()
         response_login = comm.post('/api/oms/login', '', {'usernameOrEmail': 'zhaowende',
-                                                  'password': '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'})
+                                                          'password': '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'})
         assert 200 == response_login.status_code
 
     def test_wrong_username_or_password(self):
@@ -20,4 +19,3 @@ class TestLogin(object):
         comm = Common()
         response_login = comm.post('/api/oms/login', '', {'usernameOrEmail': 'wrong', 'password': 'wrong'})
         assert 400 == response_login.status_code
-

@@ -1,5 +1,4 @@
 from common import Common
-import unittest
 from case.oms.base import get_access_token
 
 

@@ -1,4 +1,3 @@
-import pytest
 import json
 from common import Common
 from case.oms.base import get_access_token
