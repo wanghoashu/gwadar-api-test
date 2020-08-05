@@ -29,9 +29,6 @@ class TestFlight(object):
         assert 201 == response.status_code
         TestFlight.flight_id = json.loads(response.text)['id']
 
-    def test_add_flight_with_wrong_param(self):
-        pass
-
     def test_update_flight(self):
         """
         修改航班
