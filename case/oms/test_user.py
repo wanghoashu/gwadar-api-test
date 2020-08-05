@@ -13,8 +13,8 @@ class TestUser(object):
         """
         获取个人信息是否成功
         """
-        comm = Common()
-        print("access_token", TestUser.access_token)
-        response_user = comm.get('/api/oms/users/me', TestUser.access_token)
+        comm = Common(token=TestUser.access_token)
+        print("access_token")
+        response_user = comm.get('/api/oms/users/me')
         print(response_user.text)
         assert 200 == response_user.status_code

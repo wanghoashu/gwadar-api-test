@@ -11,67 +11,68 @@ config_dict = yaml.load(cfg, Loader=yaml.FullLoader)
 
 
 class Common(object):
-    def __init__(self):
+    def __init__(self, token=''):
         self.url_root = config_dict.get('url')
+        self.token = token
 
-    def get(self, uri, token='', params=''):
+    def get(self, uri, params=''):
         url = self.url_root + uri + params
         headers = {'Api-Version': 'v1'}
-        if len(token) > 0:
-            headers['Authorization'] = 'Bearer ' + token
+        if len(self.token) > 0:
+            headers['Authorization'] = 'Bearer ' + self.token
 
         res = requests.get(url, params=params, headers=headers)
         return res
 
-    def post(self, uri, token='', params=None):
+    def post(self, uri, params=None):
         url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
-        if len(token) > 0:
-            headers['Authorization'] = 'Bearer ' + token
+        if len(self.token) > 0:
+            headers['Authorization'] = 'Bearer ' + self.token
         if params is not None:
             res = requests.post(url, headers=headers, data=params)
         else:
             res = requests.post(url, headers=headers)
         return res
 
-    def post_with_json(self, uri, token='', params=None):
+    def post_with_json(self, uri, params=None):
         url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
-        if len(token) > 0:
-            headers['Authorization'] = 'Bearer ' + token
+        if len(self.token) > 0:
+            headers['Authorization'] = 'Bearer ' + self.token
         if params is not None:
             res = requests.post(url, headers=headers, json=params)
         else:
             res = requests.post(url, headers=headers)
         return res
 
-    def put(self, uri, token='', params=None):
+    def put(self, uri, params=None):
         url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
-        if len(token) > 0:
-            headers['Authorization'] = 'Bearer ' + token
+        if len(self.token) > 0:
+            headers['Authorization'] = 'Bearer ' + self.token
         if params is not None:
             res = requests.put(url, headers=headers, data=params)
         else:
             res = requests.put(url, headers=headers)
         return res
 
-    def put_with_json(self, uri, token='', params=None):
+    def put_with_json(self, uri, params=None):
         url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
-        if len(token) > 0:
-            headers['Authorization'] = 'Bearer ' + token
+        if len(self.token) > 0:
+            headers['Authorization'] = 'Bearer ' + self.token
         if params is not None:
             res = requests.put(url, headers=headers, json=params)
         else:
             res = requests.put(url, headers=headers)
         return res
 
-    def delete(self, uri, token='', params=None):
+    def delete(self, uri, params=None):
         url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
-        if len(token) > 0:
-            headers['Authorization'] = 'Bearer ' + token
+        if len(self.token) > 0:
+            headers['Authorization'] = 'Bearer ' + self.token
         if params is not None:
             res = requests.delete(url, headers=headers, data=params)
         else:
