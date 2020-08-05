@@ -243,7 +243,7 @@ function filter_table(elem) {
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 05-Aug-2020 at 12:57:43 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
+    <p>Report generated on 05-Aug-2020 at 15:02:58 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v2.1.1</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -259,8 +259,8 @@ function filter_table(elem) {
         <td>Python</td>
         <td>3.8.4</td></tr></table>
     <h2>Summary</h2>
-    <p>13 tests ran in 1.10 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">13 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>13 tests ran in 2.65 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="passed">11 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="failed">2 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filter_table(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -271,31 +271,51 @@ function filter_table(elem) {
           <th>Links</th></tr>
         <tr hidden="true" id="not-found-message">
           <th colspan="4">No results found. Try to check the filters</th></tr></thead>
-      <tbody class="passed results-table-row">
+      <tbody class="failed results-table-row">
         <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">case/oms/test_flight.py::TestFlight::test_add_flight</td>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case/oms/test_flight.py::TestFlight::test_get_flight_with_wrong_id</td>
           <td class="col-duration">0.05</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>token: SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTypM3EnRFYh7MULAhM5sBJMhPqXVJcjca9uW3dc46aRYtiQ3hTGgXfQ2SxInxqqYC1ECeVvX3Pv4jWoCvNeE6k/VKOpon9poOJFpRkFXPBt2whGDKN7tR3RrnCCB3OPPKZ19uEPy/QLITZ5BwosNVDTb4/1l2xOKcU6sbw6exGzw5C2jYDNYuSiQKD5DwXRfEig7Qq0iksrISQqCiFrq/ysYA4IzlMfRde64glRRFxuTqw==
+            <div class="log">self = &lt;case.oms.test_flight.TestFlight object at 0x10b217490&gt;<br/><br/>    def test_get_flight_with_wrong_id(self):<br/>        &quot;&quot;&quot;<br/>        查询航班，无效的ID<br/>        &quot;&quot;&quot;<br/>        url = &#x27;/api/oms/flights/111111111&#x27;<br/>        response = TestFlight.common.get(url)<br/>        print(response.text)<br/>&gt;       assert 400 == response.status_code<br/><span class="error">E       assert 400 == 500</span><br/><span class="error">E        +  where 500 = &lt;Response [500]&gt;.status_code</span><br/><br/>case/oms/test_flight.py:93: AssertionError<br/> ------------------------------Captured stdout call------------------------------ <br/>
+<br/></div></td></tr></tbody>
+      <tbody class="failed results-table-row">
+        <tr>
+          <td class="col-result">Failed</td>
+          <td class="col-name">case/oms/test_flight.py::TestFlight::test_delete_flight_with_wrong_id</td>
+          <td class="col-duration">0.10</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log">self = &lt;case.oms.test_flight.TestFlight object at 0x10b2519a0&gt;<br/><br/>    def test_delete_flight_with_wrong_id(self):<br/>        &quot;&quot;&quot;<br/>        删除航班<br/>        &quot;&quot;&quot;<br/>        url = &#x27;/api/oms/flights/111111110&#x27;<br/>        response = TestFlight.common.delete(url)<br/>        print(response.text)<br/>&gt;       assert 400 == response.status_code<br/><span class="error">E       assert 400 == 204</span><br/><span class="error">E        +  where 204 = &lt;Response [204]&gt;.status_code</span><br/><br/>case/oms/test_flight.py:111: AssertionError<br/> ------------------------------Captured stdout call------------------------------ <br/>
+<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">case/oms/test_flight.py::TestFlight::test_add_flight</td>
+          <td class="col-duration">0.11</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>token: SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTypM3EnRFYh7MULAhM5sBJMhPqXVJcjca9uW3dc46aRYtiQ3hTGgXfQ2SxInxqqYC1ECeVvX3Pv4jWoCvNeE6k/VKOpon9poOJFpRkFXPBt2whGDKN7tR3RrnCCB3OPPKZ1NzGn3u8h0JSgQ+hHuwJTd4/1l2xOKcU6sbw6exGzw5EhkggEzbrBSbEtlzyQVWJdH5TTiPX+2Dn5PI9GnMbIodFsVOIF3pTNP/BOAgDw6AQ==
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case/oms/test_flight.py::TestFlight::test_add_flight_with_wrong_flight_number</td>
-          <td class="col-duration">0.03</td>
+          <td class="col-duration">0.05</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>token: SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTypM3EnRFYh7MULAhM5sBJMhPqXVJcjca9uW3dc46aRYtiQ3hTGgXfQ2SxInxqqYC1ECeVvX3Pv4jWoCvNeE6k/VKOpon9poOJFpRkFXPBt2whGDKN7tR3RrnCCB3OPPKZ19uEPy/QLITZ5BwosNVDTb4/1l2xOKcU6sbw6exGzw5C2jYDNYuSiQKD5DwXRfEig7Qq0iksrISQqCiFrq/ysYA4IzlMfRde64glRRFxuTqw==
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>token: SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTypM3EnRFYh7MULAhM5sBJMhPqXVJcjca9uW3dc46aRYtiQ3hTGgXfQ2SxInxqqYC1ECeVvX3Pv4jWoCvNeE6k/VKOpon9poOJFpRkFXPBt2whGDKN7tR3RrnCCB3OPPKZ1NzGn3u8h0JSgQ+hHuwJTd4/1l2xOKcU6sbw6exGzw5EhkggEzbrBSbEtlzyQVWJdH5TTiPX+2Dn5PI9GnMbIodFsVOIF3pTNP/BOAgDw6AQ==
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case/oms/test_flight.py::TestFlight::test_update_flight</td>
-          <td class="col-duration">0.05</td>
+          <td class="col-duration">0.07</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -305,7 +325,7 @@ function filter_table(elem) {
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case/oms/test_flight.py::TestFlight::test_update_flight_with_wrong_flight_number</td>
-          <td class="col-duration">0.05</td>
+          <td class="col-duration">0.19</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -315,21 +335,11 @@ function filter_table(elem) {
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case/oms/test_flight.py::TestFlight::test_get_flight</td>
-          <td class="col-duration">0.04</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>{&quot;id&quot;:&quot;1290874608253161474&quot;,&quot;flightNumber&quot;:&quot;001&quot;,&quot;startCity&quot;:&quot;tj1&quot;,&quot;endCity&quot;:&quot;bj1&quot;,&quot;startTime&quot;:&quot;2020-01-02 00:00:00&quot;,&quot;endTime&quot;:&quot;2020-01-03 00:00:00&quot;,&quot;status&quot;:&quot;UNPUBLISHED&quot;,&quot;createdTime&quot;:&quot;2020-08-05T04:57:44Z&quot;,&quot;updatedTime&quot;:&quot;2020-08-05T04:57:45Z&quot;,&quot;updatedByEmail&quot;:&quot;zhaowende@isoftstone.com&quot;}
-<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">case/oms/test_flight.py::TestFlight::test_get_flight_with_wrong_id</td>
           <td class="col-duration">0.05</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>{&quot;id&quot;:&quot;1290906119144755201&quot;,&quot;flightNumber&quot;:&quot;001&quot;,&quot;startCity&quot;:&quot;tj1&quot;,&quot;endCity&quot;:&quot;bj1&quot;,&quot;startTime&quot;:&quot;2020-01-02 00:00:00&quot;,&quot;endTime&quot;:&quot;2020-01-03 00:00:00&quot;,&quot;status&quot;:&quot;UNPUBLISHED&quot;,&quot;createdTime&quot;:&quot;2020-08-05T07:02:57Z&quot;,&quot;updatedTime&quot;:&quot;2020-08-05T07:02:57Z&quot;,&quot;updatedByEmail&quot;:&quot;zhaowende@isoftstone.com&quot;}
 <br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
@@ -344,18 +354,8 @@ function filter_table(elem) {
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
-          <td class="col-name">case/oms/test_flight.py::TestFlight::test_delete_flight_with_wrong_id</td>
-          <td class="col-duration">0.04</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>
-<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
           <td class="col-name">case/oms/test_flight.py::TestFlight::test_complete_process</td>
-          <td class="col-duration">0.22</td>
+          <td class="col-duration">0.91</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -364,7 +364,7 @@ function filter_table(elem) {
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case/oms/test_login.py::TestLogin::test_normal_login</td>
-          <td class="col-duration">0.06</td>
+          <td class="col-duration">0.09</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -373,7 +373,7 @@ function filter_table(elem) {
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case/oms/test_login.py::TestLogin::test_wrong_username_or_password</td>
-          <td class="col-duration">0.03</td>
+          <td class="col-duration">0.35</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
@@ -392,10 +392,10 @@ function filter_table(elem) {
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">case/portal/test_login.py::TestLogin::test_normal_login</td>
-          <td class="col-duration">0.08</td>
+          <td class="col-duration">0.07</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
             <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>200
-{&quot;status&quot;:&quot;NORMAL&quot;,&quot;access_token&quot;:&quot;SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTyqvYB4y7/g8vlAVfBkMCmFMHyQ4PVuV8vmVHbaqG/+dcqcmsJv+VEJ3oAvLf8O7+0AcTS22qpbBM1jzdx2jyoaMVdIcJGeEHK//JPWzP1wQ/N5mjavgHso0mFNeA9N2p/0MXnp54rEA6mVTTekjC2E5xZEW1qBVvojubrQuyZfFuJhXPwLQwLMQzrJ0iWa5YAE=&quot;,&quot;refresh_token&quot;:&quot;SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTyqvYB4y7/g8vlAVfBkMCmFMHyQ4PVuV8vmVHbaqG/+dcqcmsJv+VEJ3oAvLf8O7+0BUTKjVu4pWzB/CJrcE5JZBG4ahJQWjeeiFiEU7kIl16uX29rHLYSBP9Bg64vab7DPWVbfsVvVsvKgqW3GETq9fBUnpfWownd4S8H3paP6hsr80osMfULhTFCIq0syv4hI=&quot;,&quot;expires_in&quot;:&quot;3600&quot;,&quot;uid&quot;:&quot;1201026938060144640&quot;,&quot;display_name&quot;:&quot;zhaowende&quot;,&quot;token_type&quot;:&quot;Bearer&quot;}
+{&quot;status&quot;:&quot;NORMAL&quot;,&quot;access_token&quot;:&quot;SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTyqvYB4y7/g8vlAVfBkMCmFMHyQ4PVuV8vmVHbaqG/+dcqcmsJv+VEJ3oAvLf8O7+0D7JFaTGMMXrAIPXCVchXy9sNBK5xlDAhl4R9fSIq9cjX6cyJHGvz7e2icQR1+NWXw79EnsB1Zf29MouiwOuMI8dbD1ErQqINTyons5nnCiKPNDAu3ZgAxdB2x5C8ODwn0=&quot;,&quot;refresh_token&quot;:&quot;SHuX2kWCC8vi6kANz3Hpwl666WHW2TKB9Dv0C6elTyqvYB4y7/g8vlAVfBkMCmFMHyQ4PVuV8vmVHbaqG/+dcqcmsJv+VEJ3oAvLf8O7+0DYxhWs62CnAYWUpUqj0ruVwN9wMk8NTM+NLiyzDjx4rNNxTShTfgClF1mIN6Gewf/OsS+mtW/Pt2+Io9yQ9tOkXopX9SioQNd4itjTRPP11A+1BKGFaYbuAeygyoJF8+0=&quot;,&quot;expires_in&quot;:&quot;3600&quot;,&quot;uid&quot;:&quot;1201026938060144640&quot;,&quot;display_name&quot;:&quot;zhaowende&quot;,&quot;token_type&quot;:&quot;Bearer&quot;}
 <br/></div></td></tr></tbody></table></body></html>

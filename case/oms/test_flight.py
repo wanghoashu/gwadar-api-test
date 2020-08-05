@@ -3,10 +3,6 @@ from common import Common
 from case.oms.base import get_access_token
 
 
-# common = Common(token=get_access_token())
-# print('token:', common.token)
-
-
 class TestFlight(object):
     flight_id = None
     common = None
@@ -94,7 +90,7 @@ class TestFlight(object):
         url = '/api/oms/flights/111111111'
         response = TestFlight.common.get(url)
         print(response.text)
-        assert 500 == response.status_code
+        assert 400 == response.status_code
 
     def test_delete_flight(self):
         """
@@ -112,7 +108,7 @@ class TestFlight(object):
         url = '/api/oms/flights/111111110'
         response = TestFlight.common.delete(url)
         print(response.text)
-        assert 204 == response.status_code
+        assert 400 == response.status_code
 
     def test_complete_process(self):
         """

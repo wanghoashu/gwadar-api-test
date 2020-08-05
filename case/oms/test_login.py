@@ -1,7 +1,5 @@
 from common import Common
 
-common = Common()
-
 
 class TestLogin(object):
     common = None
