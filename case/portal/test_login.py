@@ -1,5 +1,6 @@
 from common import Common
 import requests
+from case.portal.base import Base
 
 
 class TestLogin(object):

@@ -1,15 +1,10 @@
 import json
 from common import Common
-from case.oms.base import get_access_token
+from case.oms.base import Base
 
 
-class TestFlight(object):
-    access_token = None
+class TestFlight(Base):
     flight_id = None
-
-    @classmethod
-    def setup_class(cls):
-        cls.access_token = get_access_token()
 
     def test_add_flight(self):
         """
@@ -18,7 +13,7 @@ class TestFlight(object):
         print('添加航班')
         url = '/api/oms/flights'
         comm = Common()
-        response = comm.post_with_json(url, TestFlight.access_token, {
+        response = comm.post_with_json(url, super().access_token, {
             "flightNumber": "001",
             "startCity": "tj",
             "endCity": "bj",
@@ -37,7 +32,7 @@ class TestFlight(object):
         print('修改航班')
         url = '/api/oms/flights/' + TestFlight.flight_id
         comm = Common()
-        response = comm.put_with_json(url, TestFlight.access_token, {
+        response = comm.put_with_json(url, super().access_token, {
             "id": TestFlight.flight_id,
             "flightNumber": "001",
             "startCity": "tj1",
@@ -55,7 +50,7 @@ class TestFlight(object):
         print('查询航班')
         url = '/api/oms/flights/' + TestFlight.flight_id
         comm = Common()
-        response = comm.get(url, token=TestFlight.access_token)
+        response = comm.get(url, token=super().access_token)
         print(response.text)
         assert 200 == response.status_code
 
@@ -66,7 +61,7 @@ class TestFlight(object):
         print('删除航班')
         url = '/api/oms/flights/' + TestFlight.flight_id
         comm = Common()
-        response = comm.delete(url, token=TestFlight.access_token)
+        response = comm.delete(url, token=super().access_token)
         print(response.text)
         assert 204 == response.status_code
 
@@ -76,7 +71,7 @@ class TestFlight(object):
         """
         print('增删改查完整流程')
         comm = Common()
-        response = comm.post_with_json('/api/oms/flights', TestFlight.access_token, {
+        response = comm.post_with_json('/api/oms/flights', super().access_token, {
             "flightNumber": "001",
             "startCity": "tj",
             "endCity": "bj",
@@ -86,7 +81,7 @@ class TestFlight(object):
         assert 201 == response.status_code
 
         flight_id = json.loads(response.text)['id']
-        response = comm.put_with_json('/api/oms/flights/' + flight_id, TestFlight.access_token, {
+        response = comm.put_with_json('/api/oms/flights/' + flight_id, super().access_token, {
             "id": str(flight_id),
             "flightNumber": "001",
             "startCity": "tj1",
@@ -96,8 +91,8 @@ class TestFlight(object):
         })
         assert 204 == response.status_code
 
-        response = comm.get('/api/oms/flights/' + flight_id, token=TestFlight.access_token)
+        response = comm.get('/api/oms/flights/' + flight_id, token=super().access_token)
         assert 200 == response.status_code
 
-        response = comm.delete('/api/oms/flights/' + flight_id, token=TestFlight.access_token)
+        response = comm.delete('/api/oms/flights/' + flight_id, token=super().access_token)
         assert 204 == response.status_code
