@@ -25,7 +25,6 @@ class TestFlight(object):
             "startTime": "2020-01-01 00:00:00",
             "endTime": "2020-01-02 00:00:00"
         })
-        # print(response.text)
         assert 201 == response.status_code
         TestFlight.flight_id = json.loads(response.text)['id']
 
