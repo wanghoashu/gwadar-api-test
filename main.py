@@ -1,4 +1,4 @@
 import pytest
 
 if __name__ == '__main__':
-    pytest.main(['-q', '--html=./report.html'])
+    pytest.main(['-q', '--html=./report/report.html'])
