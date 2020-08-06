@@ -16,7 +16,7 @@ class Common(object):
         self.token = token
 
     def get(self, uri, params=''):
-        url = self.url_root + uri + params
+        url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
         if len(self.token) > 0:
             headers['Authorization'] = 'Bearer ' + self.token

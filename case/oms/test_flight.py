@@ -83,6 +83,12 @@ class TestFlight(object):
         print(response.text)
         assert 200 == response.status_code
 
+    def test_get_filght_list(self):
+        url = '/api/oms/flights'
+        response = TestFlight.common.get(url, params={'page': 1, 'pageSize': 10})
+        print(response.text)
+        assert 200 == response.status_code
+
     def test_get_flight_with_wrong_id(self):
         """
         查询航班，无效的ID
