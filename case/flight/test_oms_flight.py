@@ -1,23 +1,23 @@
 import json
 from common import Common
-from case.oms.base import get_access_token
+from base import get_oms_access_token
 
 
-class TestFlight(object):
+class TestOmsFlight(object):
     flight_id = None
     common = None
 
     @classmethod
     def setup_class(cls):
-        cls.common = Common(token=get_access_token())
+        cls.common = Common(token=get_oms_access_token())
 
     def test_add_flight(self):
         """
         添加航班
         """
         url = '/api/oms/flights'
-        print('token:', TestFlight.common.token)
-        response = TestFlight.common.post_with_json(url, {
+        print('token:', TestOmsFlight.common.token)
+        response = TestOmsFlight.common.post_with_json(url, {
             "flightNumber": "001",
             "startCity": "tj",
             "endCity": "bj",
@@ -25,15 +25,15 @@ class TestFlight(object):
             "endTime": "2020-01-02 00:00:00"
         })
         assert 201 == response.status_code
-        TestFlight.flight_id = json.loads(response.text)['id']
+        TestOmsFlight.flight_id = json.loads(response.text)['id']
 
     def test_add_flight_with_wrong_flight_number(self):
         """
         添加航班, 航班号超长
         """
-        print('token:', TestFlight.common.token)
+        print('token:', TestOmsFlight.common.token)
         url = '/api/oms/flights'
-        response = TestFlight.common.post_with_json(url, {
+        response = TestOmsFlight.common.post_with_json(url, {
             "flightNumber": "12345678901",
             "startCity": "tj",
             "endCity": "bj",
@@ -46,9 +46,9 @@ class TestFlight(object):
         """
         修改航班
         """
-        url = '/api/oms/flights/' + TestFlight.flight_id
-        response = TestFlight.common.put_with_json(url, {
-            "id": TestFlight.flight_id,
+        url = '/api/oms/flights/' + TestOmsFlight.flight_id
+        response = TestOmsFlight.common.put_with_json(url, {
+            "id": TestOmsFlight.flight_id,
             "flightNumber": "001",
             "startCity": "tj1",
             "endCity": "bj1",
@@ -62,9 +62,9 @@ class TestFlight(object):
         """
         修改航班，航班号超长
         """
-        url = '/api/oms/flights/' + TestFlight.flight_id
-        response = TestFlight.common.put_with_json(url, {
-            "id": TestFlight.flight_id,
+        url = '/api/oms/flights/' + TestOmsFlight.flight_id
+        response = TestOmsFlight.common.put_with_json(url, {
+            "id": TestOmsFlight.flight_id,
             "flightNumber": "12345678901",
             "startCity": "tj1",
             "endCity": "bj1",
@@ -78,14 +78,14 @@ class TestFlight(object):
         """
         查询航班
         """
-        url = '/api/oms/flights/' + TestFlight.flight_id
-        response = TestFlight.common.get(url)
+        url = '/api/oms/flights/' + TestOmsFlight.flight_id
+        response = TestOmsFlight.common.get(url)
         print(response.text)
         assert 200 == response.status_code
 
     def test_get_filght_list(self):
         url = '/api/oms/flights'
-        response = TestFlight.common.get(url, params={'page': 1, 'pageSize': 10})
+        response = TestOmsFlight.common.get(url, params={'page': 1, 'pageSize': 10})
         print(response.text)
         assert 200 == response.status_code
 
@@ -94,7 +94,7 @@ class TestFlight(object):
         查询航班，无效的ID
         """
         url = '/api/oms/flights/111111111'
-        response = TestFlight.common.get(url)
+        response = TestOmsFlight.common.get(url)
         print(response.text)
         assert 400 == response.status_code
 
@@ -102,8 +102,8 @@ class TestFlight(object):
         """
         删除航班
         """
-        url = '/api/oms/flights/' + TestFlight.flight_id
-        response = TestFlight.common.delete(url)
+        url = '/api/oms/flights/' + TestOmsFlight.flight_id
+        response = TestOmsFlight.common.delete(url)
         print(response.text)
         assert 204 == response.status_code
 
@@ -112,7 +112,7 @@ class TestFlight(object):
         删除航班
         """
         url = '/api/oms/flights/111111110'
-        response = TestFlight.common.delete(url)
+        response = TestOmsFlight.common.delete(url)
         print(response.text)
         assert 400 == response.status_code
 
@@ -120,7 +120,7 @@ class TestFlight(object):
         """
         增删改查完整流程
         """
-        response = TestFlight.common.post_with_json('/api/oms/flights', {
+        response = TestOmsFlight.common.post_with_json('/api/oms/flights', {
             "flightNumber": "001",
             "startCity": "tj",
             "endCity": "bj",
@@ -130,7 +130,7 @@ class TestFlight(object):
         assert 201 == response.status_code
 
         flight_id = json.loads(response.text)['id']
-        response = TestFlight.common.put_with_json('/api/oms/flights/' + flight_id, {
+        response = TestOmsFlight.common.put_with_json('/api/oms/flights/' + flight_id, {
             "id": str(flight_id),
             "flightNumber": "001",
             "startCity": "tj1",
@@ -140,8 +140,8 @@ class TestFlight(object):
         })
         assert 204 == response.status_code
 
-        response = TestFlight.common.get('/api/oms/flights/' + flight_id)
+        response = TestOmsFlight.common.get('/api/oms/flights/' + flight_id)
         assert 200 == response.status_code
 
-        response = TestFlight.common.delete('/api/oms/flights/' + flight_id)
+        response = TestOmsFlight.common.delete('/api/oms/flights/' + flight_id)
         assert 204 == response.status_code
