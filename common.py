@@ -1,6 +1,7 @@
+import os
+
 import requests
 import yaml
-import os
 
 cur_path = os.path.dirname(os.path.realpath(__file__))
 yaml_path = os.path.join(cur_path, "config.yaml")
@@ -24,13 +25,17 @@ class Common(object):
         res = requests.get(url, params=params, headers=headers)
         return res
 
-    def post(self, uri, params=None):
+    def post(self, uri, params=None, files=None):
         url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
         if len(self.token) > 0:
             headers['Authorization'] = 'Bearer ' + self.token
-        if params is not None:
+        if params is not None and files is not None:
+            res = requests.post(url, headers=headers, data=params, files=files)
+        elif params is not None and files is None:
             res = requests.post(url, headers=headers, data=params)
+        elif params is None and files is not None:
+            res = requests.post(url, headers=headers, files=files)
         else:
             res = requests.post(url, headers=headers)
         return res
@@ -46,15 +51,19 @@ class Common(object):
             res = requests.post(url, headers=headers)
         return res
 
-    def put(self, uri, params=None):
+    def put(self, uri, params=None, files=None):
         url = self.url_root + uri
         headers = {'Api-Version': 'v1'}
         if len(self.token) > 0:
             headers['Authorization'] = 'Bearer ' + self.token
-        if params is not None:
-            res = requests.put(url, headers=headers, data=params)
+        if params is not None and files is not None:
+            res = requests.post(url, headers=headers, data=params, files=files)
+        elif params is not None and files is None:
+            res = requests.post(url, headers=headers, data=params)
+        elif params is None and files is not None:
+            res = requests.post(url, headers=headers, files=files)
         else:
-            res = requests.put(url, headers=headers)
+            res = requests.post(url, headers=headers)
         return res
 
     def put_with_json(self, uri, params=None):
