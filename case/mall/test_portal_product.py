@@ -7,11 +7,11 @@ from common import Common
 
 class TestPortalProduct(object):
     product_id = None
-    portalCommon = None
+    portal_common = None
 
     @classmethod
     def setup_class(cls):
-        cls.portalCommon = Common(token=get_portal_access_token())
+        cls.portal_common = Common(token=get_portal_access_token())
 
     def test_add_product(self):
         """
@@ -30,7 +30,7 @@ class TestPortalProduct(object):
             "price": "10.00",
             "stock": "1"
         }
-        response = TestPortalProduct.portalCommon.post(url, params=params, files=files)
+        response = TestPortalProduct.portal_common.post(url, params=params, files=files)
         assert 201 == response.status_code
         TestPortalProduct.product_id = json.loads(response.text)['id']
         print(TestPortalProduct.product_id)
@@ -46,7 +46,7 @@ class TestPortalProduct(object):
         删除商品
         """
         url = '/api/portal/products/' + TestPortalProduct.product_id
-        response = TestPortalProduct.portalCommon.delete(url)
+        response = TestPortalProduct.portal_common.delete(url)
         print(response.text)
         assert 204 == response.status_code
 
@@ -55,7 +55,7 @@ class TestPortalProduct(object):
         删除商品
         """
         url = '/api/portal/products/11111111'
-        response = TestPortalProduct.portalCommon.delete(url)
+        response = TestPortalProduct.portal_common.delete(url)
         print(response.text)
         assert 400 == response.status_code
 
@@ -75,13 +75,13 @@ class TestPortalProduct(object):
             "price": "10.00",
             "stock": "1"
         }
-        response = TestPortalProduct.portalCommon.post('/api/portal/products', params=params, files=files)
+        response = TestPortalProduct.portal_common.post('/api/portal/products', params=params, files=files)
         assert 201 == response.status_code
 
         product_id = json.loads(response.text)['id']
 
-        response = TestPortalProduct.portalCommon.get('/api/portal/products/' + product_id)
+        response = TestPortalProduct.portal_common.get('/api/portal/products/' + product_id)
         assert 200 == response.status_code
 
-        response = TestPortalProduct.portalCommon.delete('/api/portal/products/' + product_id)
+        response = TestPortalProduct.portal_common.delete('/api/portal/products/' + product_id)
         assert 204 == response.status_code

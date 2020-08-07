@@ -5,15 +5,15 @@ from base import get_portal_access_token, get_oms_access_token
 from common import Common
 
 
-class TestOmsMall(object):
-    omsCommon = None
-    portalCommon = None
+class TestOmsProduct(object):
+    oms_common = None
+    portal_common = None
     product_id = None
 
     @classmethod
     def setup_class(cls):
-        cls.omsCommon = Common(token=get_oms_access_token())
-        cls.portalCommon = Common(token=get_portal_access_token())
+        cls.oms_common = Common(token=get_oms_access_token())
+        cls.portal_common = Common(token=get_portal_access_token())
 
         # 构造数据
         root_path = os.path.abspath(os.path.dirname(__file__)).split('case')[0]
@@ -28,23 +28,23 @@ class TestOmsMall(object):
             "price": "10.00",
             "stock": "1"
         }
-        response = cls.portalCommon.post('/api/portal/products', params=params, files=files)
+        response = cls.portal_common.post('/api/portal/products', params=params, files=files)
         assert 201 == response.status_code
         cls.product_id = json.loads(response.text)['id']
 
     @classmethod
     def teardown_class(cls):
         # 删除商品
-        response = cls.portalCommon.delete('/api/portal/products/' + cls.product_id)
+        response = cls.portal_common.delete('/api/portal/products/' + cls.product_id)
         assert 204 == response.status_code
 
     def test_get_product(self):
         """
         查询商品
         """
-        url = '/api/oms/products/' + TestOmsMall.product_id
-        print(TestOmsMall.product_id)
-        response = TestOmsMall.omsCommon.get(url)
+        url = '/api/oms/products/' + TestOmsProduct.product_id
+        print(TestOmsProduct.product_id)
+        response = TestOmsProduct.oms_common.get(url)
         print(response.text)
         assert 200 == response.status_code
 
@@ -53,6 +53,6 @@ class TestOmsMall(object):
         查询商品，无效的ID
         """
         url = '/api/oms/products/111111111'
-        response = TestOmsMall.omsCommon.get(url)
+        response = TestOmsProduct.oms_common.get(url)
         print(response.text)
         assert 400 == response.status_code
