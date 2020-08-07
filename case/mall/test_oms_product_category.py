@@ -59,15 +59,15 @@ class TestOmsProductCategory(object):
         """
         查询商品分类
         """
-        url = '/api/oms/products/' + TestOmsProductCategory.product_id
+        url = '/api/oms/product-categories/' + TestOmsProductCategory.product_id
         print(TestOmsProductCategory.product_id)
         response = TestOmsProductCategory.oms_common.get(url)
         print(response.text)
         assert 200 == response.status_code
 
-    def test_get_product_with_wrong_id(self):
+    def test_get_product__category_with_wrong_id(self):
         """
-        查询商品，无效的ID
+        查询商品分类，无效的ID
         """
         url = '/api/oms/products/111111111'
         response = TestOmsProductCategory.oms_common.get(url)
