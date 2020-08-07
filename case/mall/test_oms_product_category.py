@@ -6,7 +6,8 @@ from common import Common
 
 class TestOmsProductCategory(object):
     oms_common = None
-    product_id = None
+    product_category_id = None
+    second_product_category_id = None
 
     @classmethod
     def setup_class(cls):
@@ -20,16 +21,16 @@ class TestOmsProductCategory(object):
         response = TestOmsProductCategory.oms_common.post_with_json(url, {
             "name": "一级分类"
         })
-        if '4001057' == response.headers['error-code']:
+        if 201 == response.status_code:
+            assert 201 == response.status_code
+            TestOmsProductCategory.product_category_id = json.loads(response.text)['id']
+            print(TestOmsProductCategory.product_category_id)
+        elif '4001057' == response.headers['error-code']:
             assert 400 == response.status_code
             assert 'The upper limit is 30' == response.headers['error-message']
         elif '4001058' == response.headers['error-code']:
             assert 400 == response.status_code
             assert 'Product category name already exists' == response.headers['error-message']
-        else:
-            assert 201 == response.status_code
-            TestOmsProductCategory.product_category_id = json.loads(response.text)['id']
-            print(TestOmsProductCategory.product_category_id)
 
     def test_add_second_product_category(self):
         """
@@ -37,11 +38,15 @@ class TestOmsProductCategory(object):
         """
         url = '/api/oms/product-categories'
         response = TestOmsProductCategory.oms_common.post_with_json(url, {
-            "parentId": "1",
+            "parentId": TestOmsProductCategory.product_category_id,
             "name": "二级分类",
             "iconKey": "mall.xxx.jpg"
         })
-        if '4001030' == response.headers['error-code']:
+        if 201 == response.status_code:
+            assert 201 == response.status_code
+            TestOmsProductCategory.second_product_category_id = json.loads(response.text)['id']
+            print(TestOmsProductCategory.second_product_category_id)
+        elif '4001030' == response.headers['error-code']:
             assert 400 == response.status_code
             assert 'Content does not exist' == response.headers['error-message']
         elif '4001057' == response.headers['error-code']:
@@ -50,26 +55,19 @@ class TestOmsProductCategory(object):
         elif '4001058' == response.headers['error-code']:
             assert 400 == response.status_code
             assert 'Product category name already exists' == response.headers['error-message']
-        else:
-            assert 201 == response.status_code
-            TestOmsProductCategory.product_category_id = json.loads(response.text)['id']
-            print(TestOmsProductCategory.product_category_id)
 
-    def test_get_product_category(self):
+    def test_delete_second_product_category(self):
         """
-        查询商品分类
+        删除二级商品分类
         """
-        url = '/api/oms/product-categories/' + TestOmsProductCategory.product_id
-        print(TestOmsProductCategory.product_id)
-        response = TestOmsProductCategory.oms_common.get(url)
-        print(response.text)
-        assert 200 == response.status_code
-
-    def test_get_product__category_with_wrong_id(self):
+        url = '/api/oms/product-categories/' + TestOmsProductCategory.second_product_category_id
+        response = TestOmsProductCategory.oms_common.delete(url)
+        assert 204 == response.status_code
+        
+    def test_delete_product_category(self):
         """
-        查询商品分类，无效的ID
+        删除一级商品分类
         """
-        url = '/api/oms/products/111111111'
-        response = TestOmsProductCategory.oms_common.get(url)
-        print(response.text)
-        assert 400 == response.status_code
+        url = '/api/oms/product-categories/' + TestOmsProductCategory.product_category_id
+        response = TestOmsProductCategory.oms_common.delete(url)
+        assert 204 == response.status_code
